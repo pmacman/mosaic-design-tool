@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="./dist/vendor.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <title>Mosaic Designer</title>
+    </head>
+    <body>
+        <div id="app">
+            <header>
+                <div class="logo-container">
+                    <img src="./img/logo.png" alt="Mosaic Designer" />
+                </div>
+            </header>
+
+            <main>
+                <section class="output-container content-wrapper">
+                    <div id="output" @dragover.prevent @dragenter.prevent @drop="onDrop($event)">
+                        <div v-cloak>
+                            <div class="row" v-for="row in output.rows">
+                                <i v-for="tile in row.tiles" :style="{ width: tile.width + 'px', height: tile.height + 'px', backgroundColor: tile.color, outline: '1px solid ' + output.grout}"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="input-container content-wrapper">
+                    <div class="input-grid">
+                        <input type="radio" value="0" v-model="activePosition" />
+                        <input type="radio" value="1" v-model="activePosition" />
+                        <input type="radio" value="2" v-model="activePosition" />
+                        <input type="radio" value="3" v-model="activePosition" />
+                        <input type="radio" value="4" v-model="activePosition" />
+
+                        <div id="color1" data-index="0" :data-color="design.mosaic.tiles[0].color" draggable="true" :class="{ active: activePosition === 0, empty: design.mosaic.tiles[0].color === '' }" @click="activePosition = 0" :style="{ backgroundColor: design.mosaic.tiles[0].color }" @dragstart="dragStart($event)"></div>
+                        <div id="color2" data-index="1" :data-color="design.mosaic.tiles[1].color" draggable="true" :class="{ active: activePosition === 1, empty: design.mosaic.tiles[1].color === '' }" @click="activePosition = 1" :style="{ backgroundColor: design.mosaic.tiles[1].color }" @dragstart="dragStart($event)"></div>
+                        <div id="color3" data-index="2" :data-color="design.mosaic.tiles[2].color" draggable="true" :class="{ active: activePosition === 2, empty: design.mosaic.tiles[2].color === '' }" @click="activePosition = 2" :style="{ backgroundColor: design.mosaic.tiles[2].color }" @dragstart="dragStart($event)"></div>
+                        <div id="color4" data-index="3" :data-color="design.mosaic.tiles[3].color" draggable="true" :class="{ active: activePosition === 3, empty: design.mosaic.tiles[3].color === '' }" @click="activePosition = 3" :style="{ backgroundColor: design.mosaic.tiles[3].color }" @dragstart="dragStart($event)"></div>
+                        <div id="color5" data-index="4" :data-color="design.mosaic.tiles[4].color" draggable="true" :class="{ active: activePosition === 4, empty: design.mosaic.tiles[4].color === '' }" @click="activePosition = 4" :style="{ backgroundColor: design.mosaic.tiles[4].color }" @dragstart="dragStart($event)"></div>
+
+                        <input type="number" min="0" step="1" placeholder="0%" v-model="design.mosaic.tiles[0].percent" :class="{ active: activePosition === 0 }" @focus="activePosition = 0" @keypress="percentKeyPress($event)" />
+                        <input type="number" min="0" step="1" placeholder="0%" v-model="design.mosaic.tiles[1].percent" :class="{ active: activePosition === 1 }" @focus="activePosition = 1" @keypress="percentKeyPress($event)" />
+                        <input type="number" min="0" step="1" placeholder="0%" v-model="design.mosaic.tiles[2].percent" :class="{ active: activePosition === 2 }" @focus="activePosition = 2" @keypress="percentKeyPress($event)" />
+                        <input type="number" min="0" step="1" placeholder="0%" v-model="design.mosaic.tiles[3].percent" :class="{ active: activePosition === 3 }" @focus="activePosition = 3" @keypress="percentKeyPress($event)" />
+                        <input type="number" min="0" step="1" placeholder="0%" v-model="design.mosaic.tiles[4].percent" :class="{ active: activePosition === 4 }" @focus="activePosition = 4" @keypress="percentKeyPress($event)" />
+                    </div>
+
+                    <div class="adjustment-container">
+                        <div :class="adjustmentClassObject">
+                            <span v-text="adjustment"></span>
+                            <a href="#" class="reset" @click.prevent @click="reset">Reset</a>
+                        </div>
+                    </div>
+
+                    <div class="create-button-container form">
+                        <button type="button" @click="generateOutput">Create</button>
+                    </div>
+                </section>
+
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <div class="content-wrapper pattern-container">
+                                    <h2>CHOOSE PATTERN</h2>
+
+                                    <div class="pattern-grid">
+                                        <label class="pattern-1x1" :class="{ active: design.mosaic.pattern === '1x1' }">
+                                            <i></i>
+                                            1x1
+                                            <input type="radio" value="1x1" v-model="design.mosaic.pattern" @change="this.generateOutput()" />
+                                            <span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                                        </label>
+                                        <label class="pattern-2x1" :class="{ active: design.mosaic.pattern === '2x1' }">
+                                            <i></i>
+                                            2x1
+                                            <input type="radio" value="2x1" v-model="design.mosaic.pattern" @change="this.generateOutput()" />
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                        </label>
+                                        <label class="pattern-2x2" :class="{ active: design.mosaic.pattern === '2x2' }">
+                                            <i></i>
+                                            2x2
+                                            <input type="radio" value="2x2" v-model="design.mosaic.pattern" @change="this.generateOutput()" />
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                            <span><i></i><i></i><i></i><i></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <div class="content-wrapper grout-container">
+                                    <h2>CHOOSE GROUT COLOR</h2>
+
+                                    <label style="background-color: black;" title="black" :class="{ active: design.mosaic.grout === 'black' }">
+                                        <i></i>
+                                        <input type="radio" value="black" v-model="design.mosaic.grout" @change="this.generateOutput()" />
+                                    </label>
+
+                                    <label style="background-color: gray;" title="gray" :class="{ active: design.mosaic.grout === 'gray' }">
+                                        <i></i>
+                                        <input type="radio" value="gray" v-model="design.mosaic.grout" @change="this.generateOutput()" />
+                                    </label>
+
+                                    <label style="background-color: saddlebrown;" title="saddlebrown" :class="{ active: design.mosaic.grout === 'brown' }">
+                                        <i></i>
+                                        <input type="radio" value="brown" v-model="design.mosaic.grout" @change="this.generateOutput()" />
+                                    </label>
+
+                                    <label style="background-color: white;" title="white" :class="{ active: design.mosaic.grout === 'white' }">
+                                        <i></i>
+                                        <input type="radio" value="white" v-model="design.mosaic.grout" @change="this.generateOutput()" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide-content">
+                                <div class="content-wrapper">
+                                    <h2>CHOOSE TILE COLORS</h2>
+                                    <div id="palette">
+                                        <label v-for="color in palette" :key="color.name" :title="color.name" :class="{ active: selectedColors.indexOf(color.name) >= 0 }" :style="{ backgroundColor: color.name }">
+                                            <input type="checkbox" v-model="selectedColors" :value="color.name" @change="pickColor" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </main>
+        </div>
+
+        <script src="cordova.js"></script>
+        <script src="./dist/vendor.js"></script>
+        <script src="./dist/site.js"></script>
+    </body>
+</html>

@@ -1,0 +1,565 @@
+/*
+  COLORS:
+    Purple: #451760 rgb(69, 23, 96)
+    Purple accent: #cf56a1 rgb(207, 86, 161)
+*/
+
+/*
+ * PRIMARY
+ */
+body, button {
+    font-family: Montserrat, sans-serif;
+}
+body {
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+.content-wrapper {
+    margin: 0 40px;
+}
+h2 {
+    text-transform: uppercase;
+}
+button:focus {
+    border: 2px solid #cf56a1;
+    outline: none;
+}
+button:hover {
+    cursor: pointer;
+}
+input:focus, textarea:focus {
+    outline-color: #cf56a1;
+}
+input[type=text], input[type=number] {
+    border: 1px solid darkgrey;
+}
+textarea {
+    font-family: Arial, serif;
+}
+a:link, a:active, a:hover, a:visited {
+    color: #451760;
+}
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
+[v-cloak] {
+    display: none;
+}
+
+
+/*
+ * HEADER
+ */
+header {
+    align-items: center;
+    background-color: #451760;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 2px;
+}
+.logo-container {
+    width: 50%;
+}
+.logo-container > img {
+    margin: 0 100px 0 10px;
+    max-width: 321px;
+    width: 100%;
+}
+.profile-container > label {
+    background: url("../img/account_circle-55px.svg") no-repeat;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 55px;
+    margin-right: 10px;
+    width: 55px;
+    height: 55px;
+}
+.profile-container > ul {
+    background-color: #f2f2f2;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    display: none;
+    list-style-type: none;
+    margin-top: 0;
+    padding: 0 16px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+.profile-container li {
+    margin: 20px 0;
+}
+.profile-container a {
+    display: block;
+    font-size: 20px;
+    text-decoration: none;
+}
+.profile-container input[type=checkbox] {
+    display: none;
+}
+.profile-container input[type=checkbox]:checked ~  ul {
+    display: block;
+}
+.star {
+    background: url("../img/star-36px.svg") no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    height: 36px;
+    vertical-align: middle;
+}
+.star > input[type=checkbox] {
+    display: none;
+}
+.star-container > label.active {
+    background: url("../img/star-filled-36px.svg") no-repeat;
+}
+
+
+/*
+ * FORMS
+ */
+.form label, .form input {
+    display: block;
+}
+.form input {
+    width: 100%;
+}
+.form input[type=text],
+.form input[type=email],
+.form input[type=password],
+.form textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    width: 100%;
+}
+.form button {
+    background-color: #451760;
+    border: 2px solid #cf56a1;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    max-width: 835px;
+    width: 100%;
+    height: 40px;
+}
+
+
+/*
+ * OUTPUT SECTION
+ */
+.output-container > .star-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.output-container > .star-container input[type=text] {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 20px;
+    width: 100%;
+}
+.output-container > .star-container input[type=text]:focus {
+    outline: none;
+}
+.output-container {
+    margin-bottom: 30px;
+}
+#output {
+    margin: auto;
+    min-height: 210px;
+    text-align: center;
+    white-space: nowrap;
+}
+#output .row {
+    display: flex;
+    justify-content: center;
+}
+#output i {
+    display: inline-block;
+}
+
+
+/*
+ * INPUT SECTION
+ */
+.input-container {
+    margin-bottom: 30px;
+}
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 50px;
+    grid-gap: 10px;
+    justify-items: center;
+    margin: auto;
+    max-width: 900px;
+    row-gap: 10px;
+}
+.input-grid > div {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    max-width: 100px;
+    width: 100%;
+}
+.input-grid > div.empty {
+    background: repeating-linear-gradient(
+            45deg,
+            #cccccc,
+            #cccccc 10px,
+            #a9a9a9 10px,
+            #a9a9a9 20px
+    );
+}
+.input-grid > div.active {
+    border: 4px solid rgba(207, 86, 161, .7);
+    box-shadow: 0 1px 5px #451760;
+}
+.input-grid > input[type=radio] {
+    display: none;
+}
+.input-grid > input[type=number] {
+    border-radius: 10px;
+    font-size: 22px;
+    max-width: 100px;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+}
+.input-grid > input[type=number]:focus {
+    border-radius: 10px;
+    border: 1px solid #cf56a1;
+    box-shadow: 0 1px 5px #451760;
+    outline: none;
+}
+.input-grid > input::placeholder {
+    color: #cccccc;
+}
+.adjustment-container {
+    margin: 10px 0;
+    text-align: center;
+}
+.adjustment-container > div {
+    background: url("../img/info-30px.svg") no-repeat;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    min-width: 75px;
+    text-indent: 35px;
+    vertical-align: middle;
+}
+.reset {
+    margin-left: 10px;
+}
+.text-success {
+    color: green;
+}
+.text-danger {
+    color: red;
+}
+.create-button-container {
+    text-align: center;
+}
+
+
+/*
+ * PATTERN PICKER SECTION
+ */
+.pattern-grid {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.pattern-grid > label {
+    border: 4px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 20px 10px 20px;
+}
+.pattern-grid > label > i {
+    background: none;
+    margin-left: -30px;
+    outline: none;
+    width: 24px;
+    height: 24px;
+}
+.pattern-grid > label.active > i {
+    background: url("../img/check_circle-24px.svg") no-repeat;
+    background-size: 24px;
+}
+.pattern-grid input[type=radio] {
+    display: none;
+}
+.pattern-grid span {
+    display: block;
+}
+.pattern-grid i {
+    background-color: #cccccc;
+    display: inline-block;
+    outline: 1px solid;
+}
+.pattern-1x1 span {
+    height: 20px;
+}
+.pattern-1x1 i {
+    width: 20px;
+    height: 20px;
+}
+.pattern-2x1 span {
+    height: 20px;
+}
+.pattern-2x1 i {
+    width: 40px;
+    height: 20px;
+}
+.pattern-2x2 span {
+    height: 40px;
+}
+.pattern-2x2 i {
+    width: 40px;
+    height: 40px;
+}
+
+
+/*
+ * GROUT PICKER SECTION
+ */
+.grout-container label {
+    border: 1px solid gray;
+    cursor: pointer;
+    display: block;
+    margin: 0 0 20px 40px;
+    height: 50px;
+}
+.grout-container > label > i {
+    background: none;
+    display: inline-block;
+    margin: 10px 0 0 -30px;
+    outline: none;
+    width: 24px;
+    height: 24px;
+}
+.grout-container > label.active > i {
+    background: url("../img/check_circle-24px.svg") no-repeat;
+    background-size: 24px;
+}
+.grout-container input[type=radio] {
+    display: none;
+}
+
+
+/*
+ * COLOR PICKER SECTION
+ */
+#palette input {
+    visibility: hidden;
+}
+#palette label {
+    border: 1px solid #cccccc;
+    cursor: pointer;
+    float: left;
+    margin: 2px;
+    width: 40px;
+    height: 40px;
+}
+#palette  > label.active {
+    background: url("../img/check_circle-24px.svg") no-repeat center;
+    background-size: 24px;
+}
+
+
+/*
+ * DESIGN DETAILS SECTION
+ */
+.details-container input[type=text],
+.details-container textarea {
+    display: inline-block;
+}
+.details-container > .form label {
+    display: inline-block;
+}
+.details-container textarea {
+    height: 100px;
+}
+.details-container  .star-container {
+    text-align: center;
+}
+.details-container .star {
+    margin: 0 5px 0 20px;
+}
+.details-container span {
+    font-size: 20px;
+}
+.details-container .star-container {
+    cursor: pointer;
+}
+.date-container {
+    display: none;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.date-container span {
+    font-size: 14px;
+}
+.date-container ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+.date-container li {
+    display: inline;
+    line-height: 30px;
+    white-space: nowrap;
+}
+.date-container li:first-child {
+    padding-right: 20px;
+}
+
+
+/*
+ * SWIPER
+ */
+.swiper-container {
+    border-top: 2px solid #cccccc;
+    margin-top: 40px;
+    min-height: 500px;
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    background: #fff;
+    text-align: left;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.slide-content {
+    margin: 0 20px 50px 20px;
+    width: 100%;
+}
+.swiper-button-next, .swiper-button-prev {
+    color: #451760;
+}
+.swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+}
+.swiper-pagination-bullet-active {
+    background-color: #cf56a1;
+}
+
+
+/*
+ * MODAL
+ */
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    z-index: 99;
+}
+.modal-content {
+    background-color: white;
+    border-radius: 0.5rem;
+    min-height: 300px;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+}
+.modal-content > h2 {
+
+    margin-top: 0;
+}
+.modal-content a {
+    text-decoration: none;
+}
+.modal-content ul {
+    padding-left: 10px;
+}
+.modal-content li {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+.modal-content > div {
+    display: none;
+}
+.modal-content > div.active {
+    display: block;
+}
+.close-button {
+    color: gray;
+    cursor: pointer;
+    float: right;
+    font-size: 2rem;
+    line-height: 1.5rem;
+    text-align: center;
+    width: 1.5rem;
+
+}
+.close-button:hover {
+    color: black;
+}
+.show-modal {
+    opacity: 1;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    visibility: visible;
+}
+
+
+/*
+ * MEDIA QUERIES
+ */
+@media (max-width: 640px) {
+    header button {
+        font-size: 14px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    #output i:nth-child(even) {
+        display: none;
+    }
+}
+@media (max-width: 900px) {
+    #output i:nth-child(even) {
+        display: none;
+    }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "io.cordova.mosaic",
+  "displayName": "Mosaic Designer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build:prod": "webpack --mode production --env.production",
+    "build": "webpack --mode development",
+    "lint": "eslint www/js; exit 0",
+    "stats": "webpack --profile --json > stats.json",
+    "test": "mocha --require esm",
+    "watch": "webpack --mode development --watch"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "pj-mac",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "cordova-android": "^9.0.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-ios": "^6.1.1",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "css-loader": "^4.3.0",
+    "eslint": "^7.9.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "esm": "^3.2.25",
+    "mini-css-extract-plugin": "^0.11.2",
+    "mocha": "^8.2.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "script-loader": "^0.7.2",
+    "terser-webpack-plugin": "^4.2.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-buildinfo": {},
+      "cordova-universal-links-plugin": {},
+      "cordova-plugin-browsertab": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-customurlscheme": {
+        "URL_SCHEME": "io.cordova.mosaic"
+      }
+    },
+    "platforms": [
+      "ios",
+      "browser"
+    ]
+  },
+  "dependencies": {
+    "cordova-plugin-browsertab": "0.2.0",
+    "cordova-plugin-buildinfo": "4.0.0",
+    "cordova-plugin-compat": "1.2.0",
+    "cordova-plugin-customurlscheme": "5.0.2",
+    "cordova-plugin-inappbrowser": "4.0.0",
+    "cordova-universal-links-plugin-fix": "1.2.1",
+    "swiper": "^6.3.2",
+    "vue": "^3.0.2"
+  }
+}
